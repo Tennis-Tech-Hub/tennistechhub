@@ -21,15 +21,26 @@ Repo: `Tennis-Tech-Hub/tennistechhub`, branch `main`, served from the root. Ther
 is no build step, so Pages serves the files as committed. `.nojekyll` stops Pages
 running the files through Jekyll; `CNAME` holds the custom domain.
 
-**Blocker: Pages is off, and cannot be turned on while the repo is private.**
-The org is on the free plan, which allows Pages only on public repos. Either:
+### The repo is public on purpose — put it back when Pages goes away
 
-- make `Tennis-Tech-Hub/tennistechhub` public (free), or
-- upgrade the org to Team, which allows Pages on private repos.
+The org is on the GitHub free plan, which serves Pages **only from public repos**.
+That is the sole reason `Tennis-Tech-Hub/tennistechhub` is public; nothing here
+wants to be.
 
-Then: **Settings → Pages → Source: Deploy from a branch → `main` / `/ (root)`**.
-The site comes up at `https://tennis-tech-hub.github.io/tennistechhub/` within a
-minute or two. Confirm it works there before pointing DNS at it.
+**When the site moves to Railway or Shopify, flip it back to private** — Settings
+→ General → Danger Zone → Change visibility. Neither of those hosts needs public
+source, so the moment Pages is no longer serving this, the reason is gone.
+
+Two things to do at the same time, because going public is not perfectly
+reversible:
+
+- **Rotate the FormSubmit endpoint.** Its hash has been readable by anyone for
+  as long as the repo was public, and a public hash can be POSTed to by anyone.
+- Assume the commit history was cloned. History was squashed to one commit before
+  the repo went public specifically so the destination inbox was never in it, but
+  treat anything else that was committed while public as disclosed.
+
+Until then: **Settings → Pages → Source: Deploy from a branch → `main` / `/ (root)`**.
 
 ### Cloudflare DNS for tennistechhub.com
 
