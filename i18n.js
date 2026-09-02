@@ -32,11 +32,9 @@ const LANGS = ['es', 'en'];
    translation is still being reviewed. ?lang= and the picker still override it. */
 const FORCE_LANG = null;
 
-/* Which flag marks each language in the picker. A language is not a country, so
-   these are a judgement call about audience: Spain is the conventional marker
-   for Spanish, and this page sells into Brazil and the US rather than Portugal
-   and the UK. Swap the values to change the flags; nothing else reads them. */
-const LANG_FLAG = { es: 'es', en: 'us', pt: 'br' };
+/* The short code shown on the picker, chosen to be the one a speaker of that
+   language recognises rather than the ISO 639-3 code (which would be 'spa'). */
+const LANG_CODE = { es: 'ESP', en: 'ENG', pt: 'POR' };
 
 /* Timezone -> language, for the markets this page targets. Used only as a
    backstop: the timezone says where someone IS, which is a poor guess at what
@@ -293,10 +291,7 @@ function applyLang(lang, persist){
   });
 
   const label = document.getElementById('langlabel');
-  if (label) label.textContent = dict['html.lang'].toUpperCase();
-
-  const flag = document.getElementById('langflag');
-  if (flag) flag.src = `assets/flags/${LANG_FLAG[dict['html.lang']]}.png`;
+  if (label) label.textContent = LANG_CODE[dict['html.lang']];
 
   document.querySelectorAll('.langpicker__list [data-lang]').forEach(b => {
     b.setAttribute('aria-selected', String(b.dataset.lang === dict['html.lang']));

@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- ?v= is a cache buster. Cloudflare serves JS/CSS with max-age=14400, so a
      deploy does not reach returning visitors for four hours unless the URL
      changes. Bump this on every deploy that touches styles/i18n/main. -->
-<link rel="stylesheet" href="styles.css?v=20260902f">
+<link rel="stylesheet" href="styles.css?v=20260902g">
 </head>
 <body>
 
@@ -39,17 +39,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
 
     <!-- In the bar, not inside the collapsible menu, so it is one tap away on
-         mobile. Flags mark each language: Spain for Spanish, the US for English.
-         Portuguese is switched off — see LANGS in i18n.js to restore it. -->
+         mobile. Each option is labelled in its own language, so a speaker
+         recognises theirs without needing to read the others. -->
     <div class="langpicker" id="langpicker">
       <button class="langpicker__btn" id="langbtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Idioma / Language">
-        <img class="langpicker__flag" id="langflag" src="assets/flags/es.png" alt="" width="21" height="14">
-        <span id="langlabel">ES</span>
+        <svg class="langpicker__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/>
+        </svg>
+        <span id="langlabel">ESP</span>
         <svg class="langpicker__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M0 0l5 6 5-6z" fill="currentColor"/></svg>
       </button>
       <ul class="langpicker__list" role="listbox" aria-label="Idioma / Language">
-        <li><button type="button" role="option" aria-selected="true"  data-lang="es"><img src="assets/flags/es.png" alt="" width="21" height="14">Español</button></li>
-        <li><button type="button" role="option" aria-selected="false" data-lang="en"><img src="assets/flags/us.png" alt="" width="21" height="14">English</button></li>
+        <li><button type="button" role="option" aria-selected="true"  data-lang="es"><span class="langpicker__abbr">ESP</span>Español</button></li>
+        <li><button type="button" role="option" aria-selected="false" data-lang="en"><span class="langpicker__abbr">ENG</span>English</button></li>
       </ul>
     </div>
 
@@ -270,7 +272,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="i18n.js?v=20260902f"></script>
-<script src="main.js?v=20260902f"></script>
+<script src="i18n.js?v=20260902g"></script>
+<script src="main.js?v=20260902g"></script>
 </body>
 </html>

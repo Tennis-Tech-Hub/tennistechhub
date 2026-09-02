@@ -181,10 +181,10 @@ stays one tap away on mobile. `display:contents` on `.nav__menu` at desktop
 widths dissolves it into `.nav__inner` so `order` can slot the picker back
 between the links and the CTA.
 
-Flags come from `LANG_FLAG` in `i18n.js`. A language is not a country, so those
-are a judgement call about audience: Spain is the conventional marker for
-Spanish, and English is flagged US rather than UK. Change the map to change the
-flags — nothing else reads it.
+Each option is labelled in its own language (`Español`, `English`) with a short
+code from `LANG_CODE` in `i18n.js`. Those codes are the ones a speaker of that
+language recognises — `ESP`, `ENG`, `POR` — deliberately not ISO 639-3, which
+would render Spanish as `spa`.
 
 **Portuguese is currently off.** `LANGS` is `['es', 'en']`, so detection never
 picks it, `?lang=pt` is ignored, and a Brazilian visitor gets Spanish. The `pt`
