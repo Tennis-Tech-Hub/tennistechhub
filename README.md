@@ -54,15 +54,19 @@ In the Cloudflare dashboard for the zone, add:
 | A | `@` | `185.199.111.153` | **DNS only** |
 | CNAME | `www` | `tennis-tech-hub.github.io` | **DNS only** |
 
-**Set the proxy to DNS only (grey cloud), not proxied (orange).** With the proxy
-on, GitHub cannot complete the ACME challenge and never issues a certificate —
-the symptom is a TLS warning on an otherwise working site. Once GitHub reports
-the certificate as issued you *can* turn the proxy back on, but if you do, set
-**SSL/TLS → Overview → Full** (not Flexible) or you get a redirect loop.
+**Live as of deploy, running proxied (orange cloud).** Cloudflare terminates TLS
+at its edge with its own Google Trust Services certificate, so GitHub's own
+certificate is never used and *Enforce HTTPS* in Settings → Pages stays greyed
+out — that is expected here, not a fault. If you ever switch the records to
+**DNS only**, GitHub will issue its own certificate within about 15 minutes and
+that toggle becomes available.
 
-Then in **Settings → Pages**, set Custom domain to `tennistechhub.com`, wait for
-*"DNS check successful"*, and tick **Enforce HTTPS** once it stops being greyed
-out. The certificate usually lands within 15 minutes; it can take up to 24 hours.
+Two Cloudflare settings worth confirming while proxied:
+
+- **SSL/TLS → Overview → Full.** On *Flexible*, the Cloudflare-to-GitHub leg is
+  plain HTTP even though visitors see HTTPS.
+- **SSL/TLS → Edge Certificates → Always Use HTTPS.** Without it `http://` is
+  served as-is instead of being upgraded.
 
 Worth doing while you are in there: **org Settings → Pages → Verified domains**
 gives you a `_github-pages-challenge-Tennis-Tech-Hub` TXT record. Adding it stops
