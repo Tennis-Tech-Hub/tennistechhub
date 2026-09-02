@@ -19,7 +19,25 @@ tools/        build_assets.py — regenerates assets/ from src/
 
 Repo: `Tennis-Tech-Hub/tennistechhub`, branch `main`, served from the root. There
 is no build step, so Pages serves the files as committed. `.nojekyll` stops Pages
-running the files through Jekyll; `CNAME` holds the custom domain.
+running the files through Jekyll; `CNAME` holds the custom domain. Push to `main`
+and Pages rebuilds in about a minute.
+
+### Bump `?v=` when you change styles.css, i18n.js or main.js
+
+Cloudflare serves those three with `Cache-Control: max-age=14400` — **four hours
+in the visitor's browser**, regardless of what GitHub Pages sends. A deploy
+therefore does not reach anyone who has already loaded the site until their cache
+expires. This has bitten once already: a language-detection fix looked like it
+had not deployed, because the browser was still running the previous `i18n.js`.
+
+The three URLs in `index.html` carry a `?v=` string. Bump it in the same commit
+as any change to those files and returning visitors pick the change up
+immediately; the HTML itself is only cached for 10 minutes, so it comes through.
+
+Optional, and worth doing once: set **Caching → Configuration → Browser Cache TTL
+→ Respect Existing Headers** in Cloudflare, which drops the four hours back to
+the 10 minutes GitHub actually sends. For an urgent fix, **Caching → Configuration
+→ Purge Everything**.
 
 ### The repo is public on purpose — put it back when Pages goes away
 
