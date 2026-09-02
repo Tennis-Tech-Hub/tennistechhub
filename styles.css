@@ -478,7 +478,7 @@ a{ color:inherit; text-decoration:none; }
 #demoform{ display:flex; flex-direction:column; gap:10px; max-width:530px; }
 
 #demoform input,
-#demoform select{
+#demoform textarea{
   width:100%;
   padding:13px 15px;
   background:transparent;
@@ -491,27 +491,22 @@ a{ color:inherit; text-decoration:none; }
   border-radius:0;
   appearance:none;
 }
-#demoform input::placeholder{ color:var(--white); opacity:.85; }
+#demoform input::placeholder,
+#demoform textarea::placeholder{ color:var(--white); opacity:.85; }
+#demoform textarea{
+  resize:vertical;
+  min-height:96px;
+  text-transform:none;      /* free text, unlike the uppercase field labels */
+  letter-spacing:.02em;
+}
 #demoform input:focus,
-#demoform select:focus{
+#demoform textarea:focus{
   outline:none;
   border-color:var(--green-hi);
   box-shadow:0 0 0 1px var(--green-hi);
 }
 #demoform input:user-invalid{ border-color:#e2504a; box-shadow:none; }
 
-.select{ position:relative; }
-.select::after{
-  content:"";
-  position:absolute;
-  right:16px; top:50%;
-  translate:0 -50%;
-  border:5px solid transparent;
-  border-top-color:var(--white);
-  pointer-events:none;
-}
-#demoform select{ padding-right:40px; cursor:pointer; }
-#demoform select option{ background:var(--ink-2); color:var(--white); text-transform:none; }
 
 #demoform .btn{ margin-top:6px; }
 

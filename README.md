@@ -213,6 +213,11 @@ Copy lives in the `STRINGS` table in `i18n.js`, keyed to the markup by:
 | `data-i18n-html` | `innerHTML` (copy carrying `<br>` / `<em>`) |
 | `data-i18n-ph`   | the `placeholder` attribute                 |
 
+Measured values are in `STRINGS` too, not in the markup, because their units are
+part of the translation: Spanish and Portuguese show km/h and a comma decimal
+separator (`90 km/h`, `1,7 m`, `97 km/h`), English keeps mph and a point. The
+conversions are exact — 56 mph is 90.1 km/h, 60 mph is 96.6 km/h rounded to 97.
+
 Note that `i18n.js` and `main.js` are classic scripts sharing one global scope, so
 `main.js` must not redeclare any top-level name from `i18n.js` — it reaches
 through `window.TTH_I18N` instead.
@@ -259,15 +264,21 @@ GTM matching the event name:
 
 | Event | When | Payload |
 |---|---|---|
-| `generate_lead` | submission accepted by FormSubmit | `language`, `country`, `city`, `role`, `interest` |
+| `generate_lead` | submission accepted by FormSubmit | `language`, `contact_method` (`email`/`phone`/`both`), `has_message` |
 | `form_error` | FormSubmit rejected it, or the network failed | `error` |
-| `form_invalid` | client-side validation stopped it before sending | — |
+| `form_invalid` | client-side validation stopped it before sending | `reason` (`no_contact`/`format`) |
 
 `generate_lead` is the GA4 recommended name for this, so it maps straight onto a
 GA4 Event tag and can be marked as a conversion without renaming.
 
-**No name, e-mail or phone number is pushed** — only the segmentation fields
-above. Keep it that way: PII in the dataLayer ends up in GA4, which forbids it.
+**No e-mail, phone number or message text is pushed** — only the segmentation
+fields above. Keep it that way: PII in the dataLayer ends up in GA4, which
+forbids it.
+
+The form asks for e-mail *or* phone plus an optional message. "One of these two"
+is not expressible in HTML validation, so neither input is `required` and
+`main.js` enforces it; the browser still checks the format of whichever they
+filled.
 
 Two things that are deliberately not built, in case they are wanted: there is no
 consent banner (LGPD/GDPR territory once this runs ads into Brazil or the EU),

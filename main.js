@@ -101,11 +101,23 @@ form.addEventListener('submit', async e => {
   e.preventDefault();
   const dict = i18n.STRINGS[document.documentElement.lang] || i18n.STRINGS.es;
 
+  // "e-mail or phone" is not expressible in HTML validation, so it is checked
+  // here; the browser still validates the format of whichever they filled.
+  const email = form.email.value.trim();
+  const phone = form.telefono.value.trim();
+
+  if (!email && !phone) {
+    note.textContent = dict['form.contact'];
+    note.classList.add('is-error');
+    form.email.focus();
+    track('form_invalid', { form_id: 'demoform', reason: 'no_contact' });
+    return;
+  }
   if (!form.checkValidity()) {
     note.textContent = dict['form.err'];
     note.classList.add('is-error');
     form.reportValidity();
-    track('form_invalid', { form_id: 'demoform' });
+    track('form_invalid', { form_id: 'demoform', reason: 'format' });
     return;
   }
 
@@ -126,14 +138,12 @@ form.addEventListener('submit', async e => {
     const body = await res.json().catch(() => ({}));
     if (!res.ok || body.success !== 'true') throw new Error(body.message || res.status);
 
-    // Segmentation fields only — no name, e-mail or phone goes to the dataLayer.
+    // Segmentation only — no e-mail, phone or message text goes to the dataLayer.
     track('generate_lead', {
       form_id:  'demoform',
       language: lang,
-      country:  form.pais.value.trim(),
-      city:     form.ciudad.value.trim(),
-      role:     form.perfil.value,
-      interest: form.interes.value
+      contact_method: email && phone ? 'both' : email ? 'email' : 'phone',
+      has_message: Boolean(form.mensaje.value.trim())
     });
 
     note.textContent = dict['form.ok'];
