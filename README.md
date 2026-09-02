@@ -79,9 +79,23 @@ The form posts to [FormSubmit](https://formsubmit.co) at the hashed endpoint in
 naming it anywhere in the page source or in this repo. No account, no API key, no server — which is the
 whole reason it works on GitHub Pages.
 
-Changing the destination means generating a new hashed endpoint: post once to
-`formsubmit.co/ajax/<new-address>`, click the *"Activate Form"* email that
-arrives, and take the hash it gives you.
+Copies go to whatever is listed in the `_cc` hidden input in `index.html`
+(currently `levy@clicktarget.com.br`) — comma-separated, no spaces, and those
+addresses need no activation of their own.
+
+Changing the *primary* destination means generating a new hashed endpoint: post
+once to `formsubmit.co/ajax/<new-address>`, click the *"Activate Form"* email
+that arrives, and take the hash it gives you.
+
+**Activation is per origin, not per address.** A staging URL, a Railway preview
+or a new domain each trigger their own *"Activate Form"* email on first
+submission, and the form fails until someone clicks it.
+
+**FormSubmit requires a `Referer` header** and rejects the request without one —
+confusingly, with *"Make sure you open this page through a web server"*. Browsers
+send it by default under the standard referrer policy, so do not add a
+restrictive `referrerpolicy` to the page or the form will start failing for
+visitors whose browsers strip it.
 
 The hash is public by necessity — it ships in the JS. Anyone who reads it can
 POST to it, so the form carries a `_honey` honeypot field. If spam does start
