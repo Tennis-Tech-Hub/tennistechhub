@@ -142,13 +142,32 @@ on `#herovideo` in `index.html` at a CDN instead. The originals came from:
 
 ## Language
 
-Spanish is what everyone sees today: `FORCE_LANG = 'es'` at the top of `i18n.js`
-pins the first-visit language. Set it to `null` to switch on the geo detection
-that is already written and tested — IANA timezone first (the reliable signal for
-*where* someone is), then `navigator.language`, then `es`.
+Detection is on. First visit resolves in this order:
 
-Either way the picker in the nav and `?lang=es|en|pt` always win, and a deliberate
-choice is remembered in `localStorage` under `tth.lang`.
+1. **`?lang=es|en|pt`** — for shareable links.
+2. **`localStorage`** — a returning visitor's own pick from the nav picker.
+3. **`navigator.languages`** — what the browser says they read, in the visitor's
+   own order of preference. Region subtags are dropped, so `pt-BR` and `pt-PT`
+   both get `pt`.
+4. **IANA timezone** — only reached when their browser language is none of the
+   three. Where someone *is* is a weak proxy for what they *read*, so it never
+   outranks step 3: an English speaker living in Buenos Aires gets English. It
+   earns its place for the French speaker in São Paulo, who gets Portuguese
+   rather than Spanish.
+5. **`es`** — the fallback when nothing matches.
+
+`FORCE_LANG` at the top of `i18n.js` overrides steps 3–5 for everyone; set it to
+`'es' | 'en' | 'pt'` to hard-launch one language, e.g. while a translation is
+being reviewed. `?lang=` and the picker still win over it.
+
+Auto-detected languages are deliberately *not* written to `localStorage` — only a
+deliberate pick is — so changing this logic still reaches visitors who never
+chose for themselves.
+
+One SEO consequence: all three languages live at the same URL and are swapped by
+JS, so crawlers only ever index the Spanish. Proper multilingual SEO would need
+separate paths (`/en/`, `/pt/`) with `hreflang` tags. Worth doing if organic
+search in English or Portuguese matters; not needed for paid traffic.
 
 Copy lives in the `STRINGS` table in `i18n.js`, keyed to the markup by:
 

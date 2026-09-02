@@ -1,10 +1,13 @@
 /* ============================================================
    i18n — es / en / pt
-   Default language is resolved in this order:
+   Language is resolved in this order:
      1. ?lang= query param        (shareable links)
-     2. localStorage              (returning visitor's choice)
-     3. geography  -> IANA timezone country, then navigator.language
-     4. "es"                      (fallback)
+     2. localStorage              (returning visitor's own choice)
+     3. navigator.languages       (what the visitor's browser says they read)
+     4. IANA timezone             (only when their browser language is not one
+                                   of the three we publish — a signal of where
+                                   they are, not of what they read)
+     5. "es"                      (fallback)
 
    Markup contract:
      data-i18n       -> replaces textContent
@@ -15,14 +18,17 @@
 const DEFAULT_LANG = 'es';
 const LANGS = ['es', 'en', 'pt'];
 
-/* The brief is "Spanish for now". FORCE_LANG pins the first-visit language for
-   every visitor; set it to null to hand that decision to the geo detection
-   below. An explicit ?lang= or a click on the picker always wins either way. */
-const FORCE_LANG = 'es';
+/* Pins the first-visit language for everyone, ignoring detection. null = detect.
+   Set this to 'es' | 'en' | 'pt' to hard-launch a single language, e.g. while a
+   translation is still being reviewed. ?lang= and the picker still override it. */
+const FORCE_LANG = null;
 
-/* Timezones -> language, for the LatAm markets this page targets.
-   Browsers expose the timezone without asking permission, which makes it a
-   better geo signal than navigator.language (that reports OS locale, not place). */
+/* Timezone -> language, for the markets this page targets. Used only as a
+   backstop: the timezone says where someone IS, which is a poor guess at what
+   they READ (an English speaker living in Buenos Aires reads English). It earns
+   its place for the visitor whose browser is set to a language we do not
+   publish — a French speaker in São Paulo is better served Portuguese than
+   Spanish. Browsers expose it without a permission prompt. */
 const TZ_LANG = {
   'America/Sao_Paulo': 'pt', 'America/Bahia': 'pt', 'America/Fortaleza': 'pt',
   'America/Recife': 'pt', 'America/Belem': 'pt', 'America/Manaus': 'pt',
@@ -257,15 +263,21 @@ function detectLang(){
 
   if (LANGS.includes(FORCE_LANG)) return FORCE_LANG;
 
+  // What the browser says they read, in the visitor's own order of preference.
+  // Region subtags are dropped: pt-BR and pt-PT are both served 'pt'.
+  const tags = navigator.languages?.length ? navigator.languages
+                                           : [navigator.language || ''];
+  for (const tag of tags) {
+    const base = String(tag).slice(0, 2).toLowerCase();
+    if (LANGS.includes(base)) return base;
+  }
+
+  // Their browser is set to a language we do not publish. Guess from where they are.
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     if (TZ_LANG[tz]) return TZ_LANG[tz];
   } catch (_) { /* Intl unavailable — fall through */ }
 
-  for (const tag of (navigator.languages || [navigator.language || ''])){
-    const base = String(tag).slice(0, 2).toLowerCase();
-    if (LANGS.includes(base)) return base;
-  }
   return DEFAULT_LANG;
 }
 
