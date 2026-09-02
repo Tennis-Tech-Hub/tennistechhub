@@ -97,9 +97,11 @@ The form posts to [FormSubmit](https://formsubmit.co) at the hashed endpoint in
 naming it anywhere in the page source or in this repo. No account, no API key, no server — which is the
 whole reason it works on GitHub Pages.
 
-Copies go to whatever is listed in the `_cc` hidden input in `index.html`
-(currently `levy@clicktarget.com.br`) — comma-separated, no spaces, and those
-addresses need no activation of their own.
+Copies go to whatever is listed in the `_cc` hidden input in `index.html` —
+comma-separated, no spaces, and those addresses need no activation of their own.
+Currently `levy@clicktarget.com.br` and `contact@tennistechhub.com` (the domain
+runs Google Workspace, so that mailbox has to exist there as a user or an alias
+for the copy to land).
 
 Changing the *primary* destination means generating a new hashed endpoint: post
 once to `formsubmit.co/ajax/<new-address>`, click the *"Activate Form"* email
