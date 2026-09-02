@@ -1,0 +1,6 @@
+# Source video originals (~31 MB). Re-downloadable from the CDN URLs in README.md;
+# assets/video/ holds the web encodes that actually ship.
+src/video/
+
+# scratch output from tools/build_assets.py review passes
+src/_*
