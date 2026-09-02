@@ -116,16 +116,22 @@ a{ color:inherit; text-decoration:none; }
   height:var(--nav-h);
   display:flex;
   align-items:center;
-  gap:24px;
+  gap:clamp(18px, 3vw, 46px);
 }
 .nav__logo img{ width:150px; }
 
+/* The picker sits in the bar so it survives the mobile menu collapsing. On
+   desktop `display:contents` dissolves .nav__menu so its links, the picker and
+   the CTA all become flex items of .nav__inner and `order` can interleave them
+   back into the intended row: links … picker … CTA. */
 .nav__menu{
-  margin-left:auto;
-  display:flex;
-  align-items:center;
-  gap:clamp(22px, 4vw, 62px);
+  display:contents;
 }
+.nav__logo{ order:1; }
+.nav__menu > a[href^="#"]:not(.btn){ order:2; }
+.langpicker{ order:3; }
+.nav__menu > .btn{ order:4; }
+.nav__menu > a[href^="#"]:not(.btn):first-of-type{ margin-left:auto; }
 .nav__menu > a[href^="#"]:not(.btn){
   font-size:11.5px;
   font-weight:600;
@@ -147,6 +153,7 @@ a{ color:inherit; text-decoration:none; }
 
 .nav__burger{
   display:none;
+  order:5;              /* without this it defaults to 0 and sorts before the logo */
   margin-left:auto;
   width:40px; height:34px;
   background:none; border:0; cursor:pointer;
@@ -195,6 +202,7 @@ a{ color:inherit; text-decoration:none; }
 }
 .langpicker__list button:hover{ background:rgba(255,255,255,.06); color:var(--white); }
 .langpicker__list button[aria-selected="true"]{ color:var(--green-hi); font-weight:600; }
+.langpicker__code{ display:none; }
 
 /* ============================================================
    HERO
@@ -569,7 +577,10 @@ a{ color:inherit; text-decoration:none; }
 }
 
 @media (max-width: 860px){
-  .nav__burger{ display:flex; }
+  .nav__logo img{ width:126px; }
+  .nav__burger{ display:flex; margin-left:0; }
+  .nav__inner{ gap:12px; }
+
   .nav__menu{
     position:absolute;
     top:var(--nav-h);
@@ -584,11 +595,39 @@ a{ color:inherit; text-decoration:none; }
     display:none;
   }
   .nav__menu.is-open{ display:flex; }
-  .nav__menu > a[href^="#"]:not(.btn){ padding:14px 0; border-bottom:1px solid rgba(255,255,255,.07); }
-  .langpicker{ margin:14px 0 4px; }
-  .langpicker__btn{ width:100%; justify-content:flex-start; padding:12px 14px; }
-  .langpicker__list{ left:0; right:auto; width:100%; }
+  .nav__menu > a[href^="#"]:not(.btn){ padding:14px 0; border-bottom:1px solid rgba(255,255,255,.07); margin-left:0; }
   .nav__menu .btn{ margin-top:12px; padding:14px 20px; font-size:13px; }
+
+  /* One tap per language, always visible — no drilling into the menu. The
+     dropdown trigger is redundant here, so it goes. */
+  .langpicker{ margin-left:auto; }
+  .langpicker__btn{ display:none; }
+  .langpicker__list{
+    position:static;
+    display:flex;
+    gap:2px;
+    padding:2px;
+    min-width:0;
+    opacity:1; visibility:visible; transform:none;
+    background:rgba(255,255,255,.05);
+    border-color:rgba(255,255,255,.12);
+    border-radius:3px;
+  }
+  .langpicker__list button{
+    padding:9px 9px;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-align:center;
+    border-radius:2px;
+  }
+  .langpicker__list button[aria-selected="true"]{
+    background:var(--green);
+    color:var(--ink);
+  }
+  .langpicker__list button[aria-selected="true"]:hover{ background:var(--green); color:var(--ink); }
+  .langpicker__full{ display:none; }
+  .langpicker__code{ display:inline; }
 
   .footer__inner{ grid-template-columns:1fr; justify-items:center; text-align:center; gap:18px; }
   .social{ justify-content:center; }

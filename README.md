@@ -174,6 +174,12 @@ Detection is on. First visit resolves in this order:
    rather than Spanish.
 5. **`es`** — the fallback when nothing matches.
 
+The picker lives in the nav bar rather than inside the collapsible menu, so it
+survives the mobile breakpoint. Below 860px the same `<ul>` restyles into a
+one-tap ES/EN/PT segmented control and the dropdown trigger hides; above it, the
+trigger returns and `display:contents` on `.nav__menu` lets `order` slot the
+picker back between the links and the CTA. One set of markup, no duplicate IDs.
+
 `FORCE_LANG` at the top of `i18n.js` overrides steps 3–5 for everyone; set it to
 `'es' | 'en' | 'pt'` to hard-launch one language, e.g. while a translation is
 being reviewed. `?lang=` and the picker still win over it.
