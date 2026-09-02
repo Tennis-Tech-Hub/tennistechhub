@@ -175,10 +175,15 @@ Detection is on. First visit resolves in this order:
 5. **`es`** — the fallback when nothing matches.
 
 The picker lives in the nav bar rather than inside the collapsible menu, so it
-survives the mobile breakpoint. Below 860px the same `<ul>` restyles into a
-one-tap ES/EN/PT segmented control and the dropdown trigger hides; above it, the
-trigger returns and `display:contents` on `.nav__menu` lets `order` slot the
-picker back between the links and the CTA. One set of markup, no duplicate IDs.
+stays one tap away on mobile. `display:contents` on `.nav__menu` at desktop
+widths dissolves it into `.nav__inner` so `order` can slot the picker back
+between the links and the CTA.
+
+Flags come from `LANG_FLAG` in `i18n.js` (`es → es`, `en → us`, `pt → br`). A
+language is not a country, so those are a judgement call about audience: Spain is
+the conventional marker for Spanish, and this page sells into Brazil and the US
+rather than Portugal and the UK. Change the map to change the flags — nothing
+else reads it.
 
 `FORCE_LANG` at the top of `i18n.js` overrides steps 3–5 for everyone; set it to
 `'es' | 'en' | 'pt'` to hard-launch one language, e.g. while a translation is
@@ -204,6 +209,17 @@ Copy lives in the `STRINGS` table in `i18n.js`, keyed to the markup by:
 Note that `i18n.js` and `main.js` are classic scripts sharing one global scope, so
 `main.js` must not redeclare any top-level name from `i18n.js` — it reaches
 through `window.TTH_I18N` instead.
+
+## Favicon
+
+`assets/favicon.svg` is the ball and its motion streak lifted out of the
+wordmark — the full logo is 3:1 and gets squashed into a square tab slot. The
+ball in `logo.png` is a flat `#d3eb4d` disc only 39px across, so the icon is
+redrawn as vector at the sampled colour rather than upscaled from that crop.
+
+`tools/build_assets.py` renders the PNG fallbacks from the same geometry:
+`favicon-32.png` and `favicon-180.png` for iOS, which ignores transparency and so
+gets the ink background baked in.
 
 ## Artwork
 

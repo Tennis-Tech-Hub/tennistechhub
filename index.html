@@ -13,14 +13,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <title>Tennis Tech Hub — El primer robot de tenis del mundo para jugar rallies reales</title>
 <meta name="description" content="Acemate Tennis Robot S10. Visión binocular 4K, rallies reales, sin wearables. Distribución exclusiva para Argentina, Chile, Colombia y Perú.">
-<link rel="icon" href="assets/logo.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- ?v= is a cache buster. Cloudflare serves JS/CSS with max-age=14400, so a
      deploy does not reach returning visitors for four hours unless the URL
      changes. Bump this on every deploy that touches styles/i18n/main. -->
-<link rel="stylesheet" href="styles.css?v=20260902b">
+<link rel="stylesheet" href="styles.css?v=20260902c">
 </head>
 <body>
 
@@ -36,20 +38,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="assets/logo.png" alt="Tennis Tech Hub">
     </a>
 
+    <!-- In the bar, not inside the collapsible menu, so it is one tap away on
+         mobile. Flags mark each language: Spain for Spanish, the US for English,
+         Brazil for Portuguese — the markets this page actually sells into. -->
     <div class="langpicker" id="langpicker">
-      <button class="langpicker__btn" id="langbtn" aria-haspopup="listbox" aria-expanded="false">
-        <svg class="langpicker__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/>
-        </svg>
+      <button class="langpicker__btn" id="langbtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Idioma / Language">
+        <img class="langpicker__flag" id="langflag" src="assets/flags/es.png" alt="" width="21" height="14">
         <span id="langlabel">ES</span>
         <svg class="langpicker__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M0 0l5 6 5-6z" fill="currentColor"/></svg>
       </button>
-      <!-- A dropdown on desktop; CSS turns this same list into a one-tap
-           ES/EN/PT segmented control on mobile, where the button above hides. -->
-      <ul class="langpicker__list" role="listbox" aria-label="Idioma">
-        <li><button type="button" role="option" aria-selected="true"  data-lang="es"><span class="langpicker__full">Español</span><span class="langpicker__code">ES</span></button></li>
-        <li><button type="button" role="option" aria-selected="false" data-lang="en"><span class="langpicker__full">English</span><span class="langpicker__code">EN</span></button></li>
-        <li><button type="button" role="option" aria-selected="false" data-lang="pt"><span class="langpicker__full">Português</span><span class="langpicker__code">PT</span></button></li>
+      <ul class="langpicker__list" role="listbox" aria-label="Idioma / Language">
+        <li><button type="button" role="option" aria-selected="true"  data-lang="es"><img src="assets/flags/es.png" alt="" width="21" height="14">Español</button></li>
+        <li><button type="button" role="option" aria-selected="false" data-lang="en"><img src="assets/flags/us.png" alt="" width="21" height="14">English</button></li>
+        <li><button type="button" role="option" aria-selected="false" data-lang="pt"><img src="assets/flags/br.png" alt="" width="21" height="14">Português</button></li>
       </ul>
     </div>
 
@@ -289,7 +290,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="i18n.js?v=20260902b"></script>
-<script src="main.js?v=20260902b"></script>
+<script src="i18n.js?v=20260902c"></script>
+<script src="main.js?v=20260902c"></script>
 </body>
 </html>

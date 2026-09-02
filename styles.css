@@ -176,8 +176,16 @@ a{ color:inherit; text-decoration:none; }
   transition:border-color .18s ease, color .18s ease;
 }
 .langpicker__btn:hover{ border-color:var(--green); color:var(--green-hi); }
-.langpicker__globe{ width:15px; height:15px; }
 .langpicker__caret{ width:8px; height:5px; opacity:.7; }
+
+/* Flags render at their natural 3:2; a fixed height with auto width keeps every
+   one the same size without squashing the odd ratios (Switzerland, Nepal). */
+.langpicker__flag,
+.langpicker__list img{
+  height:14px; width:auto;
+  border-radius:2px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.18);
+}
 
 .langpicker__list{
   position:absolute;
@@ -193,8 +201,9 @@ a{ color:inherit; text-decoration:none; }
 }
 .langpicker.is-open .langpicker__list{ opacity:1; visibility:visible; transform:none; }
 .langpicker__list button{
-  display:block; width:100%;
-  padding:9px 12px;
+  display:flex; align-items:center; gap:9px;
+  width:100%;
+  padding:10px 12px;
   background:none; border:0;
   color:var(--muted);
   font-family:inherit; font-size:13px; text-align:left;
@@ -202,7 +211,6 @@ a{ color:inherit; text-decoration:none; }
 }
 .langpicker__list button:hover{ background:rgba(255,255,255,.06); color:var(--white); }
 .langpicker__list button[aria-selected="true"]{ color:var(--green-hi); font-weight:600; }
-.langpicker__code{ display:none; }
 
 /* ============================================================
    HERO
@@ -598,36 +606,10 @@ a{ color:inherit; text-decoration:none; }
   .nav__menu > a[href^="#"]:not(.btn){ padding:14px 0; border-bottom:1px solid rgba(255,255,255,.07); margin-left:0; }
   .nav__menu .btn{ margin-top:12px; padding:14px 20px; font-size:13px; }
 
-  /* One tap per language, always visible — no drilling into the menu. The
-     dropdown trigger is redundant here, so it goes. */
+  /* Stays a dropdown, just moved into the bar and given a finger-sized target. */
   .langpicker{ margin-left:auto; }
-  .langpicker__btn{ display:none; }
-  .langpicker__list{
-    position:static;
-    display:flex;
-    gap:2px;
-    padding:2px;
-    min-width:0;
-    opacity:1; visibility:visible; transform:none;
-    background:rgba(255,255,255,.05);
-    border-color:rgba(255,255,255,.12);
-    border-radius:3px;
-  }
-  .langpicker__list button{
-    padding:9px 9px;
-    font-size:11.5px;
-    font-weight:700;
-    letter-spacing:.06em;
-    text-align:center;
-    border-radius:2px;
-  }
-  .langpicker__list button[aria-selected="true"]{
-    background:var(--green);
-    color:var(--ink);
-  }
-  .langpicker__list button[aria-selected="true"]:hover{ background:var(--green); color:var(--ink); }
-  .langpicker__full{ display:none; }
-  .langpicker__code{ display:inline; }
+  .langpicker__btn{ padding:10px 11px; gap:8px; }
+  .langpicker__list button{ padding:13px 14px; font-size:14px; }
 
   .footer__inner{ grid-template-columns:1fr; justify-items:center; text-align:center; gap:18px; }
   .social{ justify-content:center; }
