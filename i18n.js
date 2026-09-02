@@ -16,7 +16,12 @@
    ============================================================ */
 
 const DEFAULT_LANG = 'es';
-const LANGS = ['es', 'en', 'pt'];
+
+/* Which languages the picker offers and detection may choose. The pt STRINGS
+   block below is complete and kept in place — add 'pt' back here and restore the
+   option in index.html to turn Portuguese back on. Anything not listed here is
+   ignored by detection and by ?lang=, so a Brazilian visitor gets Spanish. */
+const LANGS = ['es', 'en'];
 
 /* Pins the first-visit language for everyone, ignoring detection. null = detect.
    Set this to 'es' | 'en' | 'pt' to hard-launch a single language, e.g. while a
@@ -279,9 +284,11 @@ function detectLang(){
   }
 
   // Their browser is set to a language we do not publish. Guess from where they are.
+  // Checked against LANGS too: the timezone map still names languages that may
+  // currently be switched off.
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (TZ_LANG[tz]) return TZ_LANG[tz];
+    if (LANGS.includes(TZ_LANG[tz])) return TZ_LANG[tz];
   } catch (_) { /* Intl unavailable — fall through */ }
 
   return DEFAULT_LANG;

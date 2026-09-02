@@ -162,16 +162,16 @@ on `#herovideo` in `index.html` at a CDN instead. The originals came from:
 
 Detection is on. First visit resolves in this order:
 
-1. **`?lang=es|en|pt`** — for shareable links.
+1. **`?lang=`** — for shareable links; only values listed in `LANGS` are honoured.
 2. **`localStorage`** — a returning visitor's own pick from the nav picker.
 3. **`navigator.languages`** — what the browser says they read, in the visitor's
-   own order of preference. Region subtags are dropped, so `pt-BR` and `pt-PT`
-   both get `pt`.
-4. **IANA timezone** — only reached when their browser language is none of the
-   three. Where someone *is* is a weak proxy for what they *read*, so it never
-   outranks step 3: an English speaker living in Buenos Aires gets English. It
-   earns its place for the French speaker in São Paulo, who gets Portuguese
-   rather than Spanish.
+   own order of preference. Region subtags are dropped, so `en-GB` and `en-US`
+   both get `en`.
+4. **IANA timezone** — only reached when their browser language is not one we
+   publish. Where someone *is* is a weak proxy for what they *read*, so it never
+   outranks step 3: an English speaker living in Buenos Aires gets English. The
+   map is filtered through `LANGS`, so entries for a switched-off language are
+   skipped rather than returned.
 5. **`es`** — the fallback when nothing matches.
 
 The picker lives in the nav bar rather than inside the collapsible menu, so it
@@ -179,11 +179,16 @@ stays one tap away on mobile. `display:contents` on `.nav__menu` at desktop
 widths dissolves it into `.nav__inner` so `order` can slot the picker back
 between the links and the CTA.
 
-Flags come from `LANG_FLAG` in `i18n.js` (`es → es`, `en → us`, `pt → br`). A
-language is not a country, so those are a judgement call about audience: Spain is
-the conventional marker for Spanish, and this page sells into Brazil and the US
-rather than Portugal and the UK. Change the map to change the flags — nothing
-else reads it.
+Flags come from `LANG_FLAG` in `i18n.js`. A language is not a country, so those
+are a judgement call about audience: Spain is the conventional marker for
+Spanish, and English is flagged US rather than UK. Change the map to change the
+flags — nothing else reads it.
+
+**Portuguese is currently off.** `LANGS` is `['es', 'en']`, so detection never
+picks it, `?lang=pt` is ignored, and a Brazilian visitor gets Spanish. The `pt`
+STRINGS block and its Brazil flag mapping are complete and left in place: add
+`'pt'` back to `LANGS` and restore the `data-lang="pt"` option in `index.html` to
+turn it back on. Nothing else needs touching.
 
 `FORCE_LANG` at the top of `i18n.js` overrides steps 3–5 for everyone; set it to
 `'es' | 'en' | 'pt'` to hard-launch one language, e.g. while a translation is
