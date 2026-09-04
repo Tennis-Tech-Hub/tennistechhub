@@ -52,7 +52,7 @@ burger.addEventListener('click', () => {
   burger.setAttribute('aria-expanded', String(open));
 });
 
-menu.querySelectorAll('a[href^="#"]').forEach(a => {
+menu.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => {
     menu.classList.remove('is-open');
     burger.setAttribute('aria-expanded', 'false');
@@ -63,18 +63,25 @@ menu.querySelectorAll('a[href^="#"]').forEach(a => {
    Two cuts, landscape and portrait, ~15 MB each — so the src is assigned here
    rather than in the markup and only the matching one is ever fetched. */
 
+/* This file also runs on legal.html, which has neither a hero video nor the
+   contact form. Both blocks are guarded on their element so that page gets the
+   nav and language picker without needing a second script of its own. */
+
 const hero = document.getElementById('herovideo');
-const portrait = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
-const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-hero.poster = portrait ? hero.dataset.posterMobile : hero.dataset.posterDesktop;
+if (hero) {
+  const portrait = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (!calm) {
-  hero.src = portrait ? hero.dataset.srcMobile : hero.dataset.srcDesktop;
-  hero.load();
-  // Some browsers refuse the autoplay attribute but allow a muted programmatic
-  // play(); if that is refused too, the poster simply stays up.
-  hero.play().catch(() => {});
+  hero.poster = portrait ? hero.dataset.posterMobile : hero.dataset.posterDesktop;
+
+  if (!calm) {
+    hero.src = portrait ? hero.dataset.srcMobile : hero.dataset.srcDesktop;
+    hero.load();
+    // Some browsers refuse the autoplay attribute but allow a muted programmatic
+    // play(); if that is refused too, the poster simply stays up.
+    hero.play().catch(() => {});
+  }
 }
 
 /* ---------- analytics ----------
@@ -94,65 +101,68 @@ function track(event, params) {
 const LEAD_ENDPOINT = 'https://formsubmit.co/ajax/3c6305fcee735dbae440d5daeee21d68';
 
 const form = document.getElementById('demoform');
-const note = document.getElementById('formnote');
-const submitBtn = form.querySelector('button[type="submit"]');
 
-form.addEventListener('submit', async e => {
-  e.preventDefault();
-  const dict = i18n.STRINGS[document.documentElement.lang] || i18n.STRINGS.es;
+if (form) {
+  const note = document.getElementById('formnote');
+  const submitBtn = form.querySelector('button[type="submit"]');
 
-  // "e-mail or phone" is not expressible in HTML validation, so it is checked
-  // here; the browser still validates the format of whichever they filled.
-  const email = form.email.value.trim();
-  const phone = form.telefono.value.trim();
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const dict = i18n.STRINGS[document.documentElement.lang] || i18n.STRINGS.es;
 
-  if (!email && !phone) {
-    note.textContent = dict['form.contact'];
-    note.classList.add('is-error');
-    form.email.focus();
-    track('form_invalid', { form_id: 'demoform', reason: 'no_contact' });
-    return;
-  }
-  if (!form.checkValidity()) {
-    note.textContent = dict['form.err'];
-    note.classList.add('is-error');
-    form.reportValidity();
-    track('form_invalid', { form_id: 'demoform', reason: 'format' });
-    return;
-  }
+    // "e-mail or phone" is not expressible in HTML validation, so it is checked
+    // here; the browser still validates the format of whichever they filled.
+    const email = form.email.value.trim();
+    const phone = form.telefono.value.trim();
 
-  const lang = document.documentElement.lang;
-  document.getElementById('form-lang').value = lang;
-  submitBtn.disabled = true;
-  note.classList.remove('is-error');
-  note.textContent = dict['form.sending'];
+    if (!email && !phone) {
+      note.textContent = dict['form.contact'];
+      note.classList.add('is-error');
+      form.email.focus();
+      track('form_invalid', { form_id: 'demoform', reason: 'no_contact' });
+      return;
+    }
+    if (!form.checkValidity()) {
+      note.textContent = dict['form.err'];
+      note.classList.add('is-error');
+      form.reportValidity();
+      track('form_invalid', { form_id: 'demoform', reason: 'format' });
+      return;
+    }
 
-  try {
-    const res = await fetch(LEAD_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: new FormData(form)
-    });
-    // FormSubmit answers 200 even when it refuses the message (unactivated
-    // address, spam trap tripped), so the body is the only real signal.
-    const body = await res.json().catch(() => ({}));
-    if (!res.ok || body.success !== 'true') throw new Error(body.message || res.status);
+    const lang = document.documentElement.lang;
+    document.getElementById('form-lang').value = lang;
+    submitBtn.disabled = true;
+    note.classList.remove('is-error');
+    note.textContent = dict['form.sending'];
 
-    // Segmentation only — no e-mail, phone or message text goes to the dataLayer.
-    track('generate_lead', {
-      form_id:  'demoform',
-      language: lang,
-      contact_method: email && phone ? 'both' : email ? 'email' : 'phone',
-      has_message: Boolean(form.mensaje.value.trim())
-    });
+    try {
+      const res = await fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      // FormSubmit answers 200 even when it refuses the message (unactivated
+      // address, spam trap tripped), so the body is the only real signal.
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || body.success !== 'true') throw new Error(body.message || res.status);
 
-    note.textContent = dict['form.ok'];
-    form.reset();
-  } catch (err) {
-    note.textContent = dict['form.fail'];
-    note.classList.add('is-error');
-    track('form_error', { form_id: 'demoform', error: String(err.message || err) });
-  } finally {
-    submitBtn.disabled = false;
-  }
-});
+      // Segmentation only — no e-mail, phone or message text goes to the dataLayer.
+      track('generate_lead', {
+        form_id:  'demoform',
+        language: lang,
+        contact_method: email && phone ? 'both' : email ? 'email' : 'phone',
+        has_message: Boolean(form.mensaje.value.trim())
+      });
+
+      note.textContent = dict['form.ok'];
+      form.reset();
+    } catch (err) {
+      note.textContent = dict['form.fail'];
+      note.classList.add('is-error');
+      track('form_error', { form_id: 'demoform', error: String(err.message || err) });
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+}
