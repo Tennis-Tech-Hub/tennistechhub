@@ -115,6 +115,7 @@ const STRINGS = {
     'contact.eyebrow':  'Contacto',
     'contact.title':    '¿Quieres llevar el futuro del tenis a tu cancha?',
 
+    'form.name':        'Nombre',
     'form.email':       'E-mail',
     'form.phone':       'Teléfono / WhatsApp',
     'form.questions':   '¿Alguna pregunta? (opcional)',
@@ -130,7 +131,7 @@ const STRINGS = {
 
     /* ---- legal page (legal.html) ---- */
     'legal.eyebrow':    'Legal',
-    'legal.updated':    'Última actualización: 4 de septiembre de 2026',
+    'legal.updated':    'Última actualización: 9 de septiembre de 2026',
     'legal.privacy.doctitle': 'Política de Privacidad — Tennis Tech Hub',
     'legal.terms.doctitle':   'Términos de Servicio — Tennis Tech Hub',
     'legal.privacy.intro':    'Qué datos personales tratamos cuando visitas este sitio o nos escribes, para qué los usamos y qué puedes hacer al respecto. Es un texto general: si tu caso necesita una respuesta concreta, escríbenos y te la damos por escrito.',
@@ -143,7 +144,7 @@ const STRINGS = {
     'legal.p1.h':  'Quiénes somos',
     'legal.p1.b':  '<p>Este sitio es operado por Tennis Tech Hub («Tennis Tech Hub», «nosotros»), distribuidor del Acemate Tennis Robot S10 en América Latina. Esta política explica qué datos personales tratamos cuando visitas el sitio o nos escribes, para qué los usamos y qué puedes hacer al respecto.</p><p>Para cualquier consulta sobre privacidad, escríbenos a <a href="mailto:contact@tennistechhub.com">contact@tennistechhub.com</a>.</p>',
     'legal.p2.h':  'Qué datos recopilamos',
-    'legal.p2.b':  '<p>Solo tratamos dos tipos de datos:</p><ul><li><strong>Los que nos entregas.</strong> Al completar el formulario de contacto: tu e-mail y/o tu teléfono, el mensaje que escribas y el idioma en que navegabas. No pedimos ningún otro dato, y el único campo imprescindible es una forma de contacto.</li><li><strong>Los que genera tu visita.</strong> Datos técnicos y de uso recogidos por nuestras herramientas de medición: páginas vistas, tiempo en el sitio, tipo de dispositivo y navegador, idioma, país aproximado y la dirección IP desde la que llegas.</li></ul><p>No recopilamos datos sensibles, no solicitamos información de pago en este sitio y no tomamos decisiones automatizadas que te afecten.</p>',
+    'legal.p2.b':  '<p>Solo tratamos dos tipos de datos:</p><ul><li><strong>Los que nos entregas.</strong> Al completar el formulario de contacto: tu nombre, tu e-mail y/o tu teléfono, el mensaje que escribas y el idioma en que navegabas. No pedimos ningún otro dato, y los únicos campos imprescindibles son tu nombre y una forma de contacto.</li><li><strong>Los que genera tu visita.</strong> Datos técnicos y de uso recogidos por nuestras herramientas de medición: páginas vistas, tiempo en el sitio, tipo de dispositivo y navegador, idioma, país aproximado y la dirección IP desde la que llegas.</li></ul><p>No recopilamos datos sensibles, no solicitamos información de pago en este sitio y no tomamos decisiones automatizadas que te afecten.</p>',
     'legal.p3.h':  'Para qué los usamos',
     'legal.p3.b':  '<ul><li>Responder tus consultas y coordinar demostraciones del producto.</li><li>Enviarte información comercial sobre Acemate y Tennis Tech Hub cuando nos la has pedido.</li><li>Entender cómo se usa el sitio y mejorarlo.</li><li>Cumplir obligaciones legales y prevenir el uso abusivo del formulario.</li></ul><p>No vendemos tus datos personales ni los cedemos a terceros con fines publicitarios.</p>',
     'legal.p4.h':  'Base legal',
@@ -231,6 +232,7 @@ const STRINGS = {
     'contact.eyebrow':  'Contact',
     'contact.title':    'Want to bring the future of tennis to your court?',
 
+    'form.name':        'Name',
     'form.email':       'E-mail',
     'form.phone':       'Phone / WhatsApp',
     'form.questions':   'Any questions? (optional)',
@@ -246,7 +248,7 @@ const STRINGS = {
 
     /* ---- legal page (legal.html) ---- */
     'legal.eyebrow':    'Legal',
-    'legal.updated':    'Last updated: 4 September 2026',
+    'legal.updated':    'Last updated: 9 September 2026',
     'legal.privacy.doctitle': 'Privacy Policy — Tennis Tech Hub',
     'legal.terms.doctitle':   'Terms of Service — Tennis Tech Hub',
     'legal.privacy.intro':    'What personal data we handle when you visit this site or write to us, what we use it for and what you can do about it. It is written in general terms: if your case needs a specific answer, write to us and we will give you one in writing.',
@@ -259,7 +261,7 @@ const STRINGS = {
     'legal.p1.h':  'Who we are',
     'legal.p1.b':  '<p>This site is operated by Tennis Tech Hub (“Tennis Tech Hub”, “we”, “us”), distributor of the Acemate Tennis Robot S10 in Latin America. This policy explains what personal data we handle when you visit the site or write to us, what we use it for, and what you can do about it.</p><p>For any privacy question, write to us at <a href="mailto:contact@tennistechhub.com">contact@tennistechhub.com</a>.</p>',
     'legal.p2.h':  'What we collect',
-    'legal.p2.b':  '<p>We handle only two kinds of data:</p><ul><li><strong>What you give us.</strong> When you fill in the contact form: your e-mail and/or phone number, the message you write and the language you were browsing in. We ask for nothing else, and the only field we genuinely need is one way to reach you.</li><li><strong>What your visit generates.</strong> Technical and usage data collected by our measurement tools: pages viewed, time on site, device and browser type, language, approximate country and the IP address you arrive from.</li></ul><p>We do not collect sensitive data, we do not ask for payment details on this site, and we do not make automated decisions that affect you.</p>',
+    'legal.p2.b':  '<p>We handle only two kinds of data:</p><ul><li><strong>What you give us.</strong> When you fill in the contact form: your name, your e-mail and/or phone number, the message you write and the language you were browsing in. We ask for nothing else, and the only fields we genuinely need are your name and one way to reach you.</li><li><strong>What your visit generates.</strong> Technical and usage data collected by our measurement tools: pages viewed, time on site, device and browser type, language, approximate country and the IP address you arrive from.</li></ul><p>We do not collect sensitive data, we do not ask for payment details on this site, and we do not make automated decisions that affect you.</p>',
     'legal.p3.h':  'What we use it for',
     'legal.p3.b':  '<ul><li>Answering your enquiries and arranging product demonstrations.</li><li>Sending you commercial information about Acemate and Tennis Tech Hub when you have asked for it.</li><li>Understanding how the site is used and improving it.</li><li>Meeting legal obligations and preventing abuse of the form.</li></ul><p>We do not sell your personal data and we do not pass it to third parties for advertising purposes.</p>',
     'legal.p4.h':  'Legal basis',
@@ -347,6 +349,7 @@ const STRINGS = {
     'contact.eyebrow':  'Contato',
     'contact.title':    'Quer levar o futuro do tênis para a sua quadra?',
 
+    'form.name':        'Nome',
     'form.email':       'E-mail',
     'form.phone':       'Telefone / WhatsApp',
     'form.questions':   'Alguma pergunta? (opcional)',
@@ -362,7 +365,7 @@ const STRINGS = {
 
     /* ---- legal page (legal.html) ---- */
     'legal.eyebrow':    'Legal',
-    'legal.updated':    'Última atualização: 4 de setembro de 2026',
+    'legal.updated':    'Última atualização: 9 de setembro de 2026',
     'legal.privacy.doctitle': 'Política de Privacidade — Tennis Tech Hub',
     'legal.terms.doctitle':   'Termos de Serviço — Tennis Tech Hub',
     'legal.privacy.intro':    'Quais dados pessoais tratamos quando você visita este site ou nos escreve, para que os usamos e o que você pode fazer a respeito. É um texto geral: se o seu caso exigir uma resposta específica, escreva para nós e responderemos por escrito.',
@@ -375,7 +378,7 @@ const STRINGS = {
     'legal.p1.h':  'Quem somos',
     'legal.p1.b':  '<p>Este site é operado pela Tennis Tech Hub («Tennis Tech Hub», «nós»), distribuidora do Acemate Tennis Robot S10 na América Latina. Esta política explica quais dados pessoais tratamos quando você visita o site ou nos escreve, para que os usamos e o que você pode fazer a respeito.</p><p>Para qualquer dúvida sobre privacidade, escreva para <a href="mailto:contact@tennistechhub.com">contact@tennistechhub.com</a>.</p>',
     'legal.p2.h':  'Quais dados coletamos',
-    'legal.p2.b':  '<p>Tratamos apenas dois tipos de dados:</p><ul><li><strong>Os que você nos fornece.</strong> Ao preencher o formulário de contato: seu e-mail e/ou telefone, a mensagem que escrever e o idioma em que navegava. Não pedimos nenhum outro dado, e o único campo realmente necessário é uma forma de contato.</li><li><strong>Os gerados pela sua visita.</strong> Dados técnicos e de uso coletados pelas nossas ferramentas de medição: páginas vistas, tempo no site, tipo de dispositivo e navegador, idioma, país aproximado e o endereço IP de onde você acessa.</li></ul><p>Não coletamos dados sensíveis, não solicitamos informações de pagamento neste site e não tomamos decisões automatizadas que afetem você.</p>',
+    'legal.p2.b':  '<p>Tratamos apenas dois tipos de dados:</p><ul><li><strong>Os que você nos fornece.</strong> Ao preencher o formulário de contato: seu nome, seu e-mail e/ou telefone, a mensagem que escrever e o idioma em que navegava. Não pedimos nenhum outro dado, e os únicos campos realmente necessários são seu nome e uma forma de contato.</li><li><strong>Os gerados pela sua visita.</strong> Dados técnicos e de uso coletados pelas nossas ferramentas de medição: páginas vistas, tempo no site, tipo de dispositivo e navegador, idioma, país aproximado e o endereço IP de onde você acessa.</li></ul><p>Não coletamos dados sensíveis, não solicitamos informações de pagamento neste site e não tomamos decisões automatizadas que afetem você.</p>',
     'legal.p3.h':  'Para que os usamos',
     'legal.p3.b':  '<ul><li>Responder às suas dúvidas e agendar demonstrações do produto.</li><li>Enviar informações comerciais sobre a Acemate e a Tennis Tech Hub quando você as solicitou.</li><li>Entender como o site é usado e melhorá-lo.</li><li>Cumprir obrigações legais e prevenir o uso abusivo do formulário.</li></ul><p>Não vendemos os seus dados pessoais nem os cedemos a terceiros para fins publicitários.</p>',
     'legal.p4.h':  'Base legal',

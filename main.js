@@ -110,8 +110,19 @@ if (form) {
     e.preventDefault();
     const dict = i18n.STRINGS[document.documentElement.lang] || i18n.STRINGS.es;
 
+    // Anything HTML validation *can* express (the required name, the format of
+    // whichever contact field they filled) is checked first, so an empty form
+    // points at the name rather than at the contact rule it also fails.
+    if (!form.checkValidity()) {
+      note.textContent = dict['form.err'];
+      note.classList.add('is-error');
+      form.reportValidity();
+      track('form_invalid', { form_id: 'demoform', reason: 'format' });
+      return;
+    }
+
     // "e-mail or phone" is not expressible in HTML validation, so it is checked
-    // here; the browser still validates the format of whichever they filled.
+    // here.
     const email = form.email.value.trim();
     const phone = form.telefono.value.trim();
 
@@ -120,13 +131,6 @@ if (form) {
       note.classList.add('is-error');
       form.email.focus();
       track('form_invalid', { form_id: 'demoform', reason: 'no_contact' });
-      return;
-    }
-    if (!form.checkValidity()) {
-      note.textContent = dict['form.err'];
-      note.classList.add('is-error');
-      form.reportValidity();
-      track('form_invalid', { form_id: 'demoform', reason: 'format' });
       return;
     }
 
