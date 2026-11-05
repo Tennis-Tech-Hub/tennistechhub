@@ -112,6 +112,9 @@ const STRINGS = {
     'card.rally.title':    'Rallies<br>personalizados',
     'card.rally.sub':      'en iPhone, Android y<br>Apple Watch',
 
+    'soldout.banner':   'Acemate S10 agotado. Déjanos tus datos y te avisamos cuando haya disponibilidad.',
+    'soldout.badge':    'Agotado',
+
     'contact.eyebrow':  'Contacto',
     'contact.title':    '¿Quieres llevar el futuro del tenis a tu cancha?',
 
@@ -229,6 +232,9 @@ const STRINGS = {
     'card.rally.title':    'Rally<br>customization',
     'card.rally.sub':      'on iPhone, Android and<br>Apple Watch',
 
+    'soldout.banner':   "Acemate S10 sold out. Leave your details and we'll let you know when it's available.",
+    'soldout.badge':    'Sold out',
+
     'contact.eyebrow':  'Contact',
     'contact.title':    'Want to bring the future of tennis to your court?',
 
@@ -345,6 +351,9 @@ const STRINGS = {
     'card.spin.slice':     'Slice',
     'card.rally.title':    'Rallies<br>personalizados',
     'card.rally.sub':      'no iPhone, Android e<br>Apple Watch',
+
+    'soldout.banner':   'Acemate S10 esgotado. Deixe seus dados e avisaremos quando houver disponibilidade.',
+    'soldout.badge':    'Esgotado',
 
     'contact.eyebrow':  'Contato',
     'contact.title':    'Quer levar o futuro do tênis para a sua quadra?',

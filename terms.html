@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260904a">
+<link rel="stylesheet" href="styles.css?v=20261105a">
 </head>
 <body>
 
@@ -33,6 +33,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ───────────────────────── NAV ─────────────────────────
      Same bar as the landing page. The section links point back at index.html
      because there are no such sections here. -->
+<!-- Sold-out notice. Delete this block (and .contact__status's badge on
+     index.html) when stock is back. -->
+<div class="soldout">
+  <a class="soldout__link" href="index.html#contacto" data-i18n="soldout.banner">Acemate S10 agotado. Déjanos tus datos y te avisamos cuando haya disponibilidad.</a>
+</div>
+
 <header class="nav" id="top">
   <div class="nav__inner">
     <a class="nav__logo" href="index.html" aria-label="Tennis Tech Hub">
@@ -167,7 +173,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="i18n.js?v=20260909a"></script>
+<script src="i18n.js?v=20261105a"></script>
 <script src="main.js?v=20260909a"></script>
 </body>
 </html>
